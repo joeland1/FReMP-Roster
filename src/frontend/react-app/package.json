@@ -1,0 +1,14 @@
+
+{
+    "name": "react-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "start": "webpack-dev-server --mode development --hot --host 0.0.0.0 --port 8080",
+        "build": "webpack --mode production"
+    }
+}

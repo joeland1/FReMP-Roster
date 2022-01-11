@@ -1,0 +1,17 @@
+version: '3.9'
+
+services: 
+  backend:
+    build: ./src/backend
+    ports: 
+      - 8000:5000
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  frontend:
+    build: ./src/frontend
+    ports:
+      - 9989:8080
