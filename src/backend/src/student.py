@@ -109,3 +109,9 @@ def modify_add(netid):
 @bp.route('/modify/<netid>', endpoint='modify_del', methods=['DELETE'])
 def modify_del(netid):
     target_class = json.loads(request.headers['class'])
+    mongodb.get_student_extended().update_one({'_id': netid},{'$pull':  {'classes': json.loads(request.headers['class'])}})
+    return jsonify({
+        'status': 'ok',
+        'change': 'removed',
+        'target': request.headers['class']
+    })
