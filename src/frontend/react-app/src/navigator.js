@@ -1,22 +1,18 @@
 import React from "react";
-import ReactDOM from 'react-dom';
-import { Home } from './home.js';
-import { Search } from './search.js';
+import { Outlet, Link } from "react-router-dom";
 
-function change_to_home (){
-    ReactDOM.render(
-    <React.StrictMode>,
-            <Home />,
-    </React.StrictMode>,
-    document.getElementById('root'));
+class Navigator extends React.Component{
+    render(){ 
+        return(
+        <>
+            <nav>
+                <Link to="/">Home</Link> | 
+                <Link to="/search">Search</Link>
+            </nav>
+            <Outlet />
+        </>
+        );
+    }
 }
 
-function change_to_search (){
-    ReactDOM.render(
-    <React.StrictMode>,
-            <Search />,
-    </React.StrictMode>,
-    document.getElementById('root'));
-}
-
-//export default Navigator_bar;
+export { Navigator };
