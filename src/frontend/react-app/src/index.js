@@ -10,12 +10,11 @@ import { Error_404 } from './error_404';
 const App = () => {
     return (
         <BrowserRouter>
+            <Navigator />
             <Routes>
-                <Route path="/" element={<Navigator />}>
-                    <Route index element={<Home />} />
-                    <Route path="search" element={<Search />} />
-                    <Route path="*" element={<Error_404 />} />
-                </Route>
+                <Route path="/" element={<Home />} />
+                <Route path="search" element={<Search />} />
+                <Route path="*" element={<Error_404 />} />
             </Routes>
         </BrowserRouter>
     );

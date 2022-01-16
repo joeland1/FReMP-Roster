@@ -13,5 +13,13 @@ services:
 
   frontend:
     build: ./src/frontend
+
+  nginx:
+    image: nginx:latest
     ports:
-      - 9989:8080
+      - 80:80
+      - 81:81
+    depends_on:
+      - frontend
+    volumes:
+      - ./src/proxy/conf.d/:/etc/nginx/conf.d/

@@ -17,6 +17,11 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({template: './static/index.html'})
-    ]
+    ],
+    devServer: {
+        host: '0.0.0.0',
+        port: 80,
+        allowedHosts: "all"
+    }
 };
 

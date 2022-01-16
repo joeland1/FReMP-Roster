@@ -32,8 +32,7 @@ def create():
     for student in new_students:
         student_col.insert_one({
             "_id": student['id'],
-            "last_name": student['name']['first'],
-            "first_name": student['name']['last'],
+            "name": student['name'],
             "gpa": student['gpa']
         })
 
