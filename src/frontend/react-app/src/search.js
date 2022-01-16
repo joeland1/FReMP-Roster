@@ -4,7 +4,8 @@ class Search extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            "student": null,
+            code: null,
+            student: null,
         };
 
         this.change_netid = this.change_netid.bind(this);
@@ -15,36 +16,31 @@ class Search extends React.Component{
         this.set_student_info(netid);
     }
 
-    componentDidMount(){
-        this.setState({
-            student: null,
-        });
-    }
-
     set_student_info(netid){
         console.log("testing netid: "+netid);
         if(netid === ""){
             console.log("empty box");
             this.setState({
-                response: null,
+                code: null,
                 student: null,
             });
+            return;
         }
         
         fetch('http://localhost:81/student/get/'+netid,{
             method: 'GET',
         })
-        .then(result => result.json(), result.stats)
-        .then((data, response_code) => {
+        .then(result => result.json().then(data => ({"status_code": result.status, "body": data})))
+        .then((data) => {
                 this.setState({
-                    response: response_code,
-                    student: data,
+                    code: data.status_code,
+                    student: data.body,
                 });
             },
-            (error, response_code) => {
+            (error) => {
                 this.setState({
-                    error_code: response_Code,
-                    error
+                    code: error.status_code,
+                    error: error.body
                 });
             }
         )
@@ -58,7 +54,7 @@ class Search extends React.Component{
                 <button onClick={this.change_netid}>Search</button>
             </div>
             <div>
-                <Student_info student={this.state.student}/>
+                <Student_info code={this.state.code} student={this.state.student}/>
             </div>
         </>
         );
@@ -72,9 +68,9 @@ class Student_info extends React.Component{
 
     render()
     {   
-        console.log("rendering now...");
-        console.log(this.props.student);
-        if(this.props.student === null){
+        console.log(this.props.code);
+        console.log(this.props.student)
+        if(this.props.code === null){
             console.log("is empty")
             return (
                 <div>
@@ -83,13 +79,18 @@ class Student_info extends React.Component{
             );
         }
 
-        else{
-            console.log("rendering a student");
-            console.log("this.props.student = "+this.props.student.status);
+        else if(this.props.code === 200){
             return (
                 <div id='netidholder'>
-                    <p>netid= {this.props.student.desc}</p>
+                    <p>netid: {this.props.student.result._id}</p>
+                    <p>gpa: {this.props.student.result.gpa}</p>
                 </div>
+            );
+        }
+
+        else{
+            return (
+                <p>Unhandled error</p>
             );
         }
     }
