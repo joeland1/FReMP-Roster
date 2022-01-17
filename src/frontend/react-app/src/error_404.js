@@ -1,3 +1,5 @@
+//afaik this doesnt render at all, something to deal with how react does links n shit
+
 import React from 'react';
 
 class Error_404 extends React.Component{
